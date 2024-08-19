@@ -7,4 +7,7 @@ with tgb.Page() as page:
 
 if __name__ == "__main__":
     gui = tp.Gui(page)
-    gui.run(title = "Data Sceince Dashboard")
+    gui.run(
+        title="Data Sceince Dashboard",
+        use_reloader=True # reload app when code is modified
+    )
