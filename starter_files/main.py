@@ -1,5 +1,7 @@
 import taipy as tp
 import taipy.gui.builder as tgb
+from taipy.gui import Icon
+from taipy import Config
 
 # create page
 with tgb.Page() as page:
@@ -7,7 +9,4 @@ with tgb.Page() as page:
 
 if __name__ == "__main__":
     gui = tp.Gui(page)
-    gui.run(
-        title="Data Sceince Dashboard",
-        use_reloader=True # reload app when code is modified
-    )
+    gui.run(title = "Data Sceince Dashboard")
