@@ -7,7 +7,7 @@ This repository stores the code of a Full Stack GUI App Project featured in my <
 <img src="https://github.com/user-attachments/assets/0e9cc143-1eb1-432f-a476-f53921b63335" width=600px>
 
 ## Requirements
-- taipy >= 4.0.0 (previous versions do no have tp.Orchestrator() but tp.Core() instead)
+- taipy >= 4.0.0 (previous versions do no have `tp.Orchestrator()` but use `tp.Core()` instead)
 - plotly = 5.24.1
 - tensorflow = 2.18.0
 - scikit-learn = 1.5.2
