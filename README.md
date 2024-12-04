@@ -38,6 +38,11 @@ On my end, it results in approx. 20% speed up from switching to RTX 4080 GPU ove
 >> pip install scikit-learn
 ```
 
+### Dataset
+S&P 500 Stocks (daily updated) by Larxel
+<br>
+https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks
+
 ## Connect with me
 <b>⭐ YouTube</b>
 <br>
