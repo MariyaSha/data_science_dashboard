@@ -15,12 +15,14 @@ from tensorflow.keras import layers
 import datetime
 import plotly.graph_objects as go
 import os
-if os.system("nvidia-smi") == 0:
-    # if GPU is compatible - install cuDF Pandas
-    import cudf.pandas
-    cudf.pandas.install()
-    # otherwise - use Pandas on CPU
-import pandas as pd
+try:
+    import cudf
+    import cudf.pandas as pd
+    print("Using cuDF for GPU acceleration.")
+except ImportError:
+    import pandas as pd
+    print("Using pandas on CPU.")
+
 
 ###################################
 # GLOBAL VARIABLES
@@ -35,8 +37,7 @@ country_names = company_data["Country"].unique().tolist()
 country_names = [(i, Icon("images/flags/" + i + ".png", i)) for i in country_names]
 
 # company names [for slider]
-company_names = company_data[["Symbol", "Shortname"]
-    ].sort_values("Shortname").values.tolist()
+company_names = company_data[["Symbol", "Shortname"]].sort_values("Shortname").values.tolist()
 
 # start and finish dates
 dates = [
@@ -225,7 +226,7 @@ def split_data(stock_data, dates, symbol):
     eval_features = eval_features.reshape(1, -1)
     # fetch features and targets
     features = temp_data.values[:-1]
-    targets = temp_data["Adj Close"].shift(-1).values[:-1]
+    targets = temp_data["Adj Close"].iloc[1:].values
     
     mean = features.mean(axis=0)
     std = features.std(axis=0)
@@ -420,10 +421,11 @@ def build_RNN(n_features):
     - input n_fratures: integer with the number of features within x and eval_x
     - output model: RNN Tensorflow model
     """
-    model = models.Sequential()
-    model.add(layers.Dense(64, activation = 'relu', input_shape=(n_features, )))
-    model.add(layers.Dense(64, activation = 'relu'))
-    model.add(layers.Dense(1, activation = 'linear'))
+    model = models.Sequential([
+        layers.Dense(64, activation='relu', input_shape=(n_features,)),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(1, activation='linear')
+    ])
     model.compile(optimizer = 'rmsprop', loss = 'mse', metrics = ['mae'])
     return model
 
@@ -440,7 +442,7 @@ if __name__ == "__main__":
     gui = tp.Gui(page)
     # run application
     gui.run(
-        title = "Data Sceince Dashboard",
+        title = "Data Science Dashboard",
         # automatically reload app when main.py is saved
         use_reloader = True
         )
