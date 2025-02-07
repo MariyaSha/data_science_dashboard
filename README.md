@@ -16,7 +16,7 @@ This repository stores the code of a Full Stack GUI App Project featured in my <
 
 ### Recommended Environment Setup - No GPU
 ```
->> conda create env -n your_name python=3.11
+>> conda create -n your_name python=3.11
 >> conda activate your_name
 >> pip install taipy
 >> pip install plotly
